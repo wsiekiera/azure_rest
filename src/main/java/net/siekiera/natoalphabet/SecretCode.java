@@ -3,13 +3,12 @@ package net.siekiera.natoalphabet;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "alphabet")
-public class NatoAlphabet {
+@Table(name = "secret_codes")
+public class SecretCode {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Character letter;
-    private String phoneticAlphabet;
+    private String name;
     private String topSecretCode;
 
     public Long getId() {
@@ -20,20 +19,12 @@ public class NatoAlphabet {
         this.id = id;
     }
 
-    public Character getLetter() {
-        return letter;
+    public String getName() {
+        return name;
     }
 
-    public void setLetter(Character letter) {
-        this.letter = letter;
-    }
-
-    public String getPhoneticAlphabet() {
-        return phoneticAlphabet;
-    }
-
-    public void setPhoneticAlphabet(String phoneticAlphabet) {
-        this.phoneticAlphabet = phoneticAlphabet;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getTopSecretCode() {

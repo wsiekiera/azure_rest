@@ -10,9 +10,9 @@
     <!-- lookup parent from repository --> 
   </parent>  
   <groupId>net.siekiera</groupId>  
-  <artifactId>natoalphabet</artifactId>  
+  <artifactId>videolinks</artifactId>  
   <version>1.0.0</version>  
-  <name>natoalphabet</name>
+  <name>videolinks</name>  
   <description>simple REST API</description>  
   <properties> 
     <java.version>1.8</java.version> 
@@ -20,28 +20,8 @@
   <dependencies> 
     <dependency> 
       <groupId>org.springframework.boot</groupId>  
-      <artifactId>spring-boot-starter-web</artifactId>
-      <exclusions>
-        <exclusion>
-          <groupId>org.springframework.boot</groupId>
-          <artifactId>spring-boot-starter-logging</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-log4j2</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.microsoft.azure</groupId>
-      <artifactId>applicationinsights-spring-boot-starter</artifactId>
-      <version>1.1.1</version>
-    </dependency>
-    <dependency>
-      <groupId>com.microsoft.azure</groupId>
-      <artifactId>applicationinsights-logging-log4j2</artifactId>
-      <version>2.1.1</version>
-    </dependency>
+      <artifactId>spring-boot-starter-web</artifactId> 
+    </dependency>  
     <dependency> 
       <groupId>com.microsoft.sqlserver</groupId>  
       <artifactId>mssql-jdbc</artifactId>  
@@ -75,8 +55,8 @@
         <version>1.9.1</version>  
         <configuration> 
           <schemaVersion>V2</schemaVersion>  
-          <resourceGroup>natoaplhabet-rg</resourceGroup>  
-          <appName>natoaplhabet</appName>  
+          <resourceGroup>acme-rg</resourceGroup>  
+          <appName>acmevideo</appName>  
           <pricingTier>P1v2</pricingTier>  
           <region>westeurope</region>  
           <runtime> 

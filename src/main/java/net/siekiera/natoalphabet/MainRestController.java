@@ -1,25 +1,34 @@
 package net.siekiera.natoalphabet;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletResponse;
+import java.util.Optional;
+
 @RestController
 public class MainRestController {
-    private static final Logger logger = LoggerFactory.getLogger(MainRestController.class);
+    final
+    SecretCodesRepository secretCodesRepository;
+    final
+    VideoLinkGenerator videoLinkGenerator;
 
-    @Autowired
-    AlphabetRepository alphabetRepository;
+    public MainRestController(SecretCodesRepository secretCodesRepository, VideoLinkGenerator videoLinkGenerator) {
+        this.secretCodesRepository = secretCodesRepository;
+        this.videoLinkGenerator = videoLinkGenerator;
+    }
 
-    @GetMapping("/")
-    public NatoAlphabet getOne(@RequestParam(name = "letter", required = true) String letter) {
-        long startTime = System.nanoTime();
-        NatoAlphabet natoAlphabetEntry = alphabetRepository.findByLetter(letter.charAt(0));
-        long endTime = System.nanoTime();
-        logger.info("Requested data for letter \"" + letter + "\". Processing time=" + (endTime-startTime)/1000000 + " ms");
-        return natoAlphabetEntry;
+    @GetMapping("/api/filmy/acme-wishes")
+    public ResponseEntity getOne(@RequestParam(name = "name", required = true) String name, HttpServletResponse httpServletResponse) {
+        Optional<SecretCode> secretCode = secretCodesRepository.findByName(name);
+        if (secretCode.isPresent()) {
+            VideoLink videoLink = videoLinkGenerator.generate(secretCode.get().getTopSecretCode());
+            return new ResponseEntity(videoLink, HttpStatus.OK);
+        } else {
+            return new ResponseEntity("Error 400: Bad request.", HttpStatus.BAD_REQUEST);
+        }
     }
 }
